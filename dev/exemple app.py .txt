@@ -1,0 +1,17 @@
+# On connecter un événement sur le line edit
+        self.editCitoyenId.returnPressed.connect(self.PressedEnter)
+
+    # On défini la fonction qu'on avait déclaré pour le clique sur le bouton
+    def SelectCitoyen(self):
+        # On récupère la valeur du line edit
+        citoyen_id = self.editCitoyenId.text()
+        # Ensuite on pourrait lancer une fonction qui interroge la BD
+        # Pour l'exemple on va simplement afficher la valeur dans le label 
+        # lblResultat
+        self.lblResultat.setText(citoyen_id)
+        # editIdCitoyen et lblResultat sont les noms qu'on a donné au widget
+        # dans l'éditeur Qt Designer
+
+    # On défini la fonction qu'on avait déclaré pour le tappe sur Enter
+    def PressedEnter(self):
+        self.SelectCitoyen()
