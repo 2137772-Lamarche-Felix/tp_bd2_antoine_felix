@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1224</width>
-    <height>679</height>
+    <height>939</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>App Livre Héro</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -20,7 +20,23 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_PanelLeft">
         <item>
-         <widget class="QLabel" name="label_2">
+         <spacer name="verticalSpacer_LeftPanelTop">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_NouvellePartieTitle">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -34,7 +50,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Disciplines</string>
+           <string>Nouvelle Partie</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -42,26 +58,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;(5 disciplines)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QListView" name="listView">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QHBoxLayout" name="horizontalLayout_NouvellePartieLivre">
           <item>
-           <widget class="QComboBox" name="comboBox_2">
+           <widget class="QLabel" name="label_NouvellePartieLivre">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Livre: </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_NouvellePartieLivre">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -70,36 +82,24 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>+</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>-</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_4">
+         <widget class="QPushButton" name="pushButton_NouvellePartie">
+          <property name="text">
+           <string>Nouvelle Partie</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="line_ContinuerPartie">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_ContinuerPartie">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -115,14 +115,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_6">
+         <widget class="QLabel" name="label_ContinuerPartieTitle">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -136,7 +129,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Sauvegardes</string>
+           <string>Continuer une Partie</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -144,25 +137,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_7">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Sauvegarde actuelle: [jamais sauvegardé]</string>
-          </property>
-         </widget>
+         <widget class="QComboBox" name="comboBox_ContinuerPartiePartie"/>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox"/>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_ContinuerPartieActions">
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="pushButton_ContinuerPartieDelete">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -175,7 +155,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="pushButton_ContinuerPartieLoad">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -190,7 +170,14 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_3">
+         <widget class="Line" name="line_Sauvegarder">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_Sauvegarder">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -200,20 +187,82 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>10</height>
+            <height>20</height>
            </size>
           </property>
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QLabel" name="label_SauvegarderTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Papyrus</family>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Sauvegarder</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_SauvegarderHint">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Sauvegarde actuelle: [jamais sauvegardé]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_SauvegarderNom">
+          <item>
+           <widget class="QLabel" name="label_SauvegarderNom">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Nom: </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_SauvegarderNom">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_SauvegarderSauvegarderChapitre">
           <property name="text">
            <string>Sauvegarder le chapitre actuel</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_2">
+         <spacer name="verticalSpacer_LeftPanelBottom">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -233,7 +282,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_PanelMiddle">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="label_ChapitreTitle">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -255,7 +304,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextBrowser" name="textBrowser">
+         <widget class="QTextBrowser" name="textBrowser_ChapitreTexte">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -265,9 +314,9 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_ChapitreControls">
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="horizontalSpacer_ChapitreControlsLeft">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -283,7 +332,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="label_ChapitreChapitre">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -296,7 +345,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="lineEdit_ChapitreChapitre">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -306,7 +355,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="pushButton_ChapitreGo">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -319,7 +368,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="horizontalSpacer_ChapitreControlsRight">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -337,7 +386,7 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer">
+         <spacer name="verticalSpacer_MiddlePanelBottom">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -357,7 +406,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_PanelRight">
         <item>
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="label_ArmesTitle">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -379,7 +428,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_9">
+         <widget class="QLabel" name="label_ArmesHint">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -392,9 +441,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QListView" name="listView_2">
+         <widget class="QListView" name="listView_ArmesArmes">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -402,9 +451,9 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <layout class="QHBoxLayout" name="horizontalLayout_ArmesControls">
           <item>
-           <widget class="QComboBox" name="comboBox_3">
+           <widget class="QComboBox" name="comboBox_ArmesControlsArme">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -414,7 +463,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_7">
+           <widget class="QPushButton" name="pushButton_ArmesControlsAdd">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -427,7 +476,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_8">
+           <widget class="QPushButton" name="pushButton_ArmesControlsRemove">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -442,7 +491,7 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_6">
+         <spacer name="verticalSpacer_Inventaire">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -458,7 +507,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_4">
+         <widget class="QLabel" name="label_InventaireTitle">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -480,7 +529,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="label_InventaireHint">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -493,9 +542,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QListView" name="listView_3">
+         <widget class="QListView" name="listView_InventaireObjets">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -503,9 +552,9 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <layout class="QHBoxLayout" name="horizontalLayout_InventaireControls">
           <item>
-           <widget class="QComboBox" name="comboBox_4">
+           <widget class="QComboBox" name="comboBox_InventaireControlsObjet">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -515,7 +564,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_9">
+           <widget class="QPushButton" name="pushButton_InventaireControlsAdd">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -528,7 +577,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_10">
+           <widget class="QPushButton" name="pushButton_InventaireControlsRemove">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -543,14 +592,124 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_5">
+         <spacer name="verticalSpacer_Disciplines">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>40</height>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_DisciplinesTitle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Papyrus</family>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Disciplines</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_DisciplinesHint">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;(5 disciplines)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListView" name="listView_Disciplines">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_DisciplinesControls">
+          <item>
+           <widget class="QComboBox" name="comboBox_DisciplinesControlsDiscipline">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_DisciplinesControlsAdd">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_DisciplinesControlsRemove">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_RightPanelBottom">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
            </size>
           </property>
          </spacer>
