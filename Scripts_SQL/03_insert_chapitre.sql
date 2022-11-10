@@ -1,3 +1,16 @@
+/*
+ * Code d'insertion des données de la bd pour les chapitres.
+ *
+ * Fichier : 03_insert_chapitre.sql
+ * Auteur : Antoine Ouellette, Félix Lamarche
+ * Langage : SQL
+ * Date : novembre 2022
+ */
+
+USE bddeux_livre_hero;
+
+/********************************************************************************/
+
 INSERT INTO chapitre(no_chapitre, livre_id, texte) VALUES (1, 1, 'Il faut vous hâter, car quelque chose vous dit qu\'il serait imprudent de vous attarder parmi les ruines fumantes du monastère détruit. Les monstres volants peuvent, en effet, reparaître à tout moment. Il n\'y a d\'ailleurs pas de temps à perdre : vous devez au plus vite prendre la route de Holmgard, la capitale du Sommerlund, pour aller annoncer au Roi cette terrible nouvelle : les Guerriers Kaï, l\'élite du pays, ont tous été massacrés, à l\'exception de vous-même. Or sans l\'autorité et le savoir des Seigneurs Kaï pour commander l\'armée, le royaume du Sommerlund se trouve à la merci de ses plus anciens ennemis: les Maîtres des Ténèbres. En retenant vos larmes à grand-peine, vous dites adieu à vos compagnons morts et vous faites le serment de les venger. Vous tournez alors le dos aux ruines et vous descendez avec précaution le sentier escarpé qui s\'ouvre devant vous. Au pied de la colline, le chemin aboutit à une bifurcation. Là, deux autres sentiers mènent l\'un et l\'autre à une grande forêt en empruntant deux directions différentes. Si vous souhaitez prendre le sentier de droite, rendez-vous au 85 Si vous préférez suivre celui de gauche, rendez-vous au 275 Enfin, si vous maîtrisez la Discipline Kaï du Sixième Sens, rendez-vous au 141.');
 INSERT INTO chapitre(no_chapitre, livre_id, texte) VALUES (2, 1, 'Tandis que vous courez à perdre haleine dans la forêt qui s\'épaissit, les cris des Gloks s\'évanouissent peu à peu derrière vous. Vous les avez presque semés lorsque vous trébuchez soudain en tombant tête la première dans un enchevêtrement de branches basses. Utilisez la Table de Hasard pour obtenir un chiffre. Si vous tirez entre 0 et 4, rendez-vous au343 Entre 5 et 9, rendez-vous au 276');
 INSERT INTO chapitre(no_chapitre, livre_id, texte) VALUES (3, 1, 'Vous emboîtez le pas à l\'officier qui franchit une porte en arcade, puis monte quelques marches menant à un grand hall. Des soldats courent en tous sens, porteurs de parchemins ornés qu\'ils doivent remettre à des officiers postés le long des murs de la ville. Un homme au visage couturé de cicatrices, l\'air hagard, s\'approche de vous et vous offre de le suivre jusqu\'à la citadelle. Il porte la toge blanche et pourpre en usage à la cour du Roi. Si vous souhaitez suivre cet homme, rendez-vous au196 Si vous préférez décliner son offre et retourner dans les rues populeuses, rendez-vous au 144');

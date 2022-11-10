@@ -1,7 +1,7 @@
 /*
- * Code de création des données de la bd pour les livres.
+ * Code de création des données de la bd.
  *
- * Fichier : CreationDonnees.sql
+ * Fichier : 01_create.sql
  * Auteur : Antoine Ouellette, Félix Lamarche
  * Langage : SQL
  * Date : novembre 2022
@@ -72,19 +72,19 @@ CREATE TABLE sauvegarde (
 DROP TABLE IF EXISTS arme;
 CREATE TABLE arme (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(30) NOT NULL
+	nom VARCHAR(50) NOT NULL
 );
 
 DROP TABLE IF EXISTS objet;
 CREATE TABLE objet (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(30) NOT NULL
+	nom VARCHAR(50) NOT NULL
 );
 
 DROP TABLE IF EXISTS discipline;
 CREATE TABLE discipline (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(30) NOT NULL
+	nom VARCHAR(50) NOT NULL
 );
 
 DROP TABLE IF EXISTS sauvegarde_arme;
