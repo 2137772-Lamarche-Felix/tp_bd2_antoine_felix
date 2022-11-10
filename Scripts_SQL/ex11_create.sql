@@ -87,76 +87,32 @@ CREATE TABLE discipline (
 	nom VARCHAR(30) NOT NULL
 );
 
-DROP TABLE IF EXISTS sauvegarde_association;
-CREATE TABLE sauvegarde_association (
+DROP TABLE IF EXISTS sauvegarde_arme;
+CREATE TABLE sauvegarde_arme (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	sauvegarde_id INTEGER NOT NULL,
 	arme_id INTEGER NOT NULL,
+	/* Contraintes */
+	FOREIGN KEY (sauvegarde_id) REFERENCES sauvegarde(id),
+	FOREIGN KEY (arme_id) REFERENCES arme(id)
+);
+
+DROP TABLE IF EXISTS sauvegarde_objet;
+CREATE TABLE sauvegarde_objet (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	sauvegarde_id INTEGER NOT NULL,
 	objet_id INTEGER NOT NULL,
+	/* Contraintes */
+	FOREIGN KEY (sauvegarde_id) REFERENCES sauvegarde(id),
+	FOREIGN KEY (objet_id) REFERENCES objet(id)
+);
+
+DROP TABLE IF EXISTS sauvegarde_discipline;
+CREATE TABLE sauvegarde_discipline (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	sauvegarde_id INTEGER NOT NULL,
 	discipline_id INTEGER NOT NULL,
 	/* Contraintes */
 	FOREIGN KEY (sauvegarde_id) REFERENCES sauvegarde(id),
-	FOREIGN KEY (arme_id) REFERENCES arme(id),
-	FOREIGN KEY (objet_id) REFERENCES objet(id),
 	FOREIGN KEY (discipline_id) REFERENCES discipline(id)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
