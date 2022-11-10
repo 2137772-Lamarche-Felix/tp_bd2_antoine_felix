@@ -9,7 +9,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="mysql",
-  database="bd2_livre_hero"
+  database="bddeux_livre_hero"
 )
 
 # En paramêtre de la classe MainWindow on va hériter des fonctionnalités
@@ -19,7 +19,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
         # On va créer la fenêtre avec cette commande
         self.setupUi(self)
-        
+
+        # Loader les combobox de la Window
+        self.PeuplerLesComboBoxs()
+
         ### Evenements ################################################
         self.pushButton_NouvellePartie.clicked.connect(self.NouvellePartie)# pushButton_NouvellePartie = NouvellePartie()
         self.pushButton_ContinuerPartieDelete.clicked.connect(self.DeletePartie)# pushButton_ContinuerPartieDelete = DeletePartie()
@@ -102,20 +105,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Set SauvegarderHint
         self.label_SauvegarderHint.text = "Sauvegarde actuelle: " + nomSauvegardeChoisi
-"""
+
     def GoToChapitre(self):
+        return
 
     def AjouterArme(self):
+        return
 
     def EnleverArme(self):
+        return
 
     def AjouterObjet(self):
+        return
 
     def EnleverObjet(self):
+        return
 
     def AjouterDiscipline(self):
+        return
 
     def EnleverDiscipline(self):
+        return
 
     def ClearApplication(self):
         # Clear les listes, le chapitre et SauvegarderHint.
@@ -123,7 +133,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_SauvegarderHint.text = "Sauvegarde actuelle: [jamais sauvegardé]"
         # Remove la Partie des comboBox.
         #...
-"""
+    
+    def PeuplerLesComboBoxs(self):
+        #select
+        mycursor = mydb.cursor()
+        mycursor.execute('SELECT nom FROM livre')
+        resultSql = mycursor.fetchall()
+        # set comboBox
+        for row in resultSql:#foreach row in resultSql:
+            self.comboBox_NouvellePartieLivre.addItem(row[0])#dans la row, va chercher le 'champ 0'.
 
     ### Fin de MainWindow ###########################################
 

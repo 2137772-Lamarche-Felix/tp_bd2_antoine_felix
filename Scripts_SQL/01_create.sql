@@ -58,17 +58,6 @@ CREATE TABLE lien_chapitre (
 	FOREIGN KEY (no_chapitre_destination) REFERENCES chapitre(no_chapitre)
 );
 
-DROP TABLE IF EXISTS sauvegarde;
-CREATE TABLE sauvegarde (
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	nom VARCHAR(30) NOT NULL,
-	livre_id INTEGER NOT NULL,
-	no_chapitre_rendu INTEGER NOT NULL,
-	/* Contraintes */
-	FOREIGN KEY (livre_id) REFERENCES livre(id),
-	FOREIGN KEY (no_chapitre_rendu) REFERENCES chapitre(no_chapitre)
-);
-
 DROP TABLE IF EXISTS arme;
 CREATE TABLE arme (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -87,32 +76,16 @@ CREATE TABLE discipline (
 	nom VARCHAR(50) NOT NULL
 );
 
-DROP TABLE IF EXISTS sauvegarde_arme;
-CREATE TABLE sauvegarde_arme (
+DROP TABLE IF EXISTS sauvegarde;
+CREATE TABLE sauvegarde (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	sauvegarde_id INTEGER NOT NULL,
-	arme_id INTEGER NOT NULL,
+	nom VARCHAR(30) NOT NULL,
+	livre_id INTEGER NOT NULL,
+	no_chapitre_rendu INTEGER NOT NULL,
+	champ_armes TEXT,
+	champ_inventaire TEXT,
+	champ_disciplines TEXT,
 	/* Contraintes */
-	FOREIGN KEY (sauvegarde_id) REFERENCES sauvegarde(id),
-	FOREIGN KEY (arme_id) REFERENCES arme(id)
-);
-
-DROP TABLE IF EXISTS sauvegarde_objet;
-CREATE TABLE sauvegarde_objet (
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	sauvegarde_id INTEGER NOT NULL,
-	objet_id INTEGER NOT NULL,
-	/* Contraintes */
-	FOREIGN KEY (sauvegarde_id) REFERENCES sauvegarde(id),
-	FOREIGN KEY (objet_id) REFERENCES objet(id)
-);
-
-DROP TABLE IF EXISTS sauvegarde_discipline;
-CREATE TABLE sauvegarde_discipline (
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	sauvegarde_id INTEGER NOT NULL,
-	discipline_id INTEGER NOT NULL,
-	/* Contraintes */
-	FOREIGN KEY (sauvegarde_id) REFERENCES sauvegarde(id),
-	FOREIGN KEY (discipline_id) REFERENCES discipline(id)
+	FOREIGN KEY (livre_id) REFERENCES livre(id),
+	FOREIGN KEY (no_chapitre_rendu) REFERENCES chapitre(no_chapitre)
 );
