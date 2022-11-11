@@ -5,12 +5,24 @@ from bd2_livre_hero import Ui_MainWindow
 # sql
 import mysql.connector
 
+# Quand c'est Antoine
+
+# mydb = mysql.connector.connect(
+#   host="localhost",
+#   user="root",
+#   password="mysql",
+#   database="bddeux_livre_hero"
+# )
+
+
+# Quand c'est félix
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="mysql",
+  password="",
   database="bddeux_livre_hero"
 )
+
 
 # En paramêtre de la classe MainWindow on va hériter des fonctionnalités
 # de QMainWindow et de notre interface Ui_MainWindow
