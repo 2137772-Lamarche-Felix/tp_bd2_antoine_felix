@@ -33,7 +33,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         # Loader les combobox de la Window
-        self.PeuplerLesComboBoxs()
+        self.PeuplerComboBoxNouvellePartieLivre()
+        self.PeuplerComboBoxContinuerPartie()
 
         ### Evenements ################################################
         self.pushButton_NouvellePartie.clicked.connect(self.NouvellePartie)# pushButton_NouvellePartie = NouvellePartie()
@@ -41,14 +42,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_ContinuerPartieLoad.clicked.connect(self.LoadPartie)
         self.lineEdit_SauvegarderNom.returnPressed.connect(self.SauvegarderChapitre)
         self.pushButton_SauvegarderSauvegarderChapitre.clicked.connect(self.SauvegarderChapitre)
-        self.lineEdit_ChapitreChapitre.returnPressed.connect(self.GoToChapitre)
         self.pushButton_ChapitreGo.clicked.connect(self.GoToChapitre)
-        self.pushButton_ArmesControlsAdd.clicked.connect(self.AjouterArme)
-        self.pushButton_ArmesControlsRemove.clicked.connect(self.EnleverArme)
-        self.pushButton_InventaireControlsAdd.clicked.connect(self.AjouterObjet)
-        self.pushButton_InventaireControlsRemove.clicked.connect(self.EnleverObjet)
-        self.pushButton_DisciplinesControlsAdd.clicked.connect(self.AjouterDiscipline)
-        self.pushButton_DisciplinesControlsRemove.clicked.connect(self.EnleverDiscipline)
         ### Fin de __init__() ###########################################
 
     ### Functions ################################################
@@ -57,24 +51,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #ClearApplication()
 
         # Read le livre choisi.
-        idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex + 1
+        idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
 
-        # Select chapitre 1 du livre idLivreChoisi.
+        # Select prologue du livre idLivreChoisi.
         mycursor = mydb.cursor()
-        mycursor.execute('SELECT texte FROM chapitre WHERE livre_id=%(id_livre)s', {'id_livre' : idLivreChoisi})
+        mycursor.execute('SELECT prologue FROM livre WHERE id=%(id_livre)s', {'id_livre' : idLivreChoisi})
         result = mycursor.fetchone()
-        texteChapitre = result[0]
+        textePrologue = result[0]
 
         # Set le texte dans le widget Chapitre.
-        self.textBrowser_ChapitreTexte.clear
-        self.textBrowser_ChapitreTexte.append = texteChapitre
+        self.textBrowser_ChapitreTexte.clear()
+        self.textBrowser_ChapitreTexte.append(textePrologue)
+
+        self.comboBox_ChapitreChapitre.addItem("1")
 
     def DeletePartie(self):
         # Clear l'application.
         #ClearApplication()
 
         # Read la Partie choisie.
-        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentIndex + 1
+        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentIndex() + 1
 
         mycursor = mydb.cursor()
         mycursor.execute('DELETE FROM sauvegarde WHERE id=%(id_sauvegarde)s', {'id_sauvegarde' : idPartieChoisie})
@@ -101,8 +97,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         texteChapitre = results[0]
 
         # Set le texte dans le widget Chapitre.
-        self.textBrowser_ChapitreTexte.clear
-        self.textBrowser_ChapitreTexte.append = texteChapitre
+        self.textBrowser_ChapitreTexte.clear()
+        self.textBrowser_ChapitreTexte.append(texteChapitre)
 
         # Set SauvegarderHint
         self.label_SauvegarderHint.text = "Sauvegarde actuelle: " + nomSauvegarde
@@ -119,25 +115,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_SauvegarderHint.text = "Sauvegarde actuelle: " + nomSauvegardeChoisi
 
     def GoToChapitre(self):
-        return
+        # Read le livre choisi.
+        idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
+        # Read le chapitre choisi.
+        idChapitreChoisi = self.comboBox_ChapitreChapitre.currentText()
 
-    def AjouterArme(self):
-        return
+        # Select prologue du livre idLivreChoisi.
+        mycursor = mydb.cursor()
+        mycursor.execute('SELECT texte FROM chapitre WHERE livre_id=%(id_livre)s AND no_chapitre=%(id_chapitre)s', {'id_livre' : idLivreChoisi, "id_chapitre" : idChapitreChoisi})
+        result = mycursor.fetchone()
+        texteChapitre = result[0]
 
-    def EnleverArme(self):
-        return
+        # Set le texte dans le widget Chapitre.
+        self.textBrowser_ChapitreTexte.clear()
+        self.textBrowser_ChapitreTexte.append(texteChapitre)
 
-    def AjouterObjet(self):
-        return
+        self.PeuplerComboBoxChapitre(idChapitreChoisi)
 
-    def EnleverObjet(self):
-        return
-
-    def AjouterDiscipline(self):
-        return
-
-    def EnleverDiscipline(self):
-        return
+    def PeuplerComboBoxContinuerPartie(self):
+        #select
+        mycursor = mydb.cursor()
+        mycursor.execute('SELECT nom FROM sauvegarde')
+        resultSql = mycursor.fetchall()
+        # set comboBox
+        for row in resultSql:#foreach row in resultSql:
+            self.comboBox_ContinuerPartiePartie.addItem(row[0])#dans la row, va chercher le 'champ 0'.
 
     def ClearApplication(self):
         # Clear les listes, le chapitre et SauvegarderHint.
@@ -146,7 +148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Remove la Partie des comboBox.
         #...
     
-    def PeuplerLesComboBoxs(self):
+    def PeuplerComboBoxNouvellePartieLivre(self):
         #select
         mycursor = mydb.cursor()
         mycursor.execute('SELECT nom FROM livre')
@@ -154,6 +156,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # set comboBox
         for row in resultSql:#foreach row in resultSql:
             self.comboBox_NouvellePartieLivre.addItem(row[0])#dans la row, va chercher le 'champ 0'.
+    
+    def PeuplerComboBoxChapitre(self, no_chapitre_actuel):
+        self.comboBox_ChapitreChapitre.clear()
+        #select
+        mycursor = mydb.cursor()
+        mycursor.execute('SELECT no_chapitre_destination FROM lien_chapitre WHERE no_chapitre_source=%(no_chapitre_source)s', {'no_chapitre_source' : no_chapitre_actuel})
+        resultSql = mycursor.fetchall()
+        # set comboBox
+        for row in resultSql:#foreach row in resultSql:
+            self.comboBox_ChapitreChapitre.addItem(str(row[0]))#dans la row, va chercher le 'champ 0'.
 
     ### Fin de MainWindow ###########################################
 

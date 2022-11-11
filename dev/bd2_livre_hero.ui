@@ -345,7 +345,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox"/>
+           <widget class="QComboBox" name="comboBox_ChapitreChapitre"/>
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_ChapitreGo">
