@@ -322,7 +322,7 @@ class Ui_MainWindow(object):
         self.label_SauvegarderHint.setText(_translate("MainWindow", "Sauvegarde actuelle: [jamais sauvegardé]"))
         self.label_SauvegarderNom.setText(_translate("MainWindow", "Nom: "))
         self.pushButton_SauvegarderSauvegarderChapitre.setText(_translate("MainWindow", "Sauvegarder le chapitre actuel"))
-        self.label_ChapitreTitle.setText(_translate("MainWindow", "Chapitre 1"))
+        self.label_ChapitreTitle.setText(_translate("MainWindow", "Chapitre"))
         self.label_ChapitreChapitre.setText(_translate("MainWindow", "Chapitre "))
         self.pushButton_ChapitreGo.setText(_translate("MainWindow", "Go"))
         self.label_ArmesTitle.setText(_translate("MainWindow", "Armes"))

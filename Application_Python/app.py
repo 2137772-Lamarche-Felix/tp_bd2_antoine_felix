@@ -40,6 +40,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Read le livre choisi.
         idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
+        self.livreActuel = idLivreChoisi
+        self.chapitreActuel = 0
 
         # Select prologue du livre idLivreChoisi.
         mycursor = mydb.cursor()
@@ -51,6 +53,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textBrowser_ChapitreTexte.clear()
         self.textBrowser_ChapitreTexte.append(textePrologue)
 
+        self.label_ChapitreTitle.setText("Prologue")
         self.comboBox_ChapitreChapitre.addItem("1")
 
     def DeletePartie(self):
@@ -58,21 +61,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #ClearApplication()
 
         # Read la Partie choisie.
-        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentIndex() + 1
+        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
 
         mycursor = mydb.cursor()
         mycursor.execute('DELETE FROM sauvegarde WHERE id=%(id_sauvegarde)s', {'id_sauvegarde' : idPartieChoisie})
+        mydb.commit()
+
+        # Clear l'application.
+        
+        # Refresh ComboBox_Load
+        self.PeuplerComboBoxContinuerPartie()
+        
 
     def LoadPartie(self):
         # Clear l'application.
         #ClearApplication()
 
         # Read la Partie choisie.
-        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentIndex + 1
+        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
 
         # Select nom, chapitre de la Sauvegarde.
         mycursor = mydb.cursor()
-        mycursor.execute('SELECT nom, chapitre_id, livre_id FROM sauvegarde WHERE id=%(id_sauvegarde)s', {'id_sauvegarde' : idPartieChoisie})
+        mycursor.execute('SELECT nom, no_chapitre_rendu, livre_id FROM sauvegarde WHERE id=%(id_sauvegarde)s', {'id_sauvegarde' : idPartieChoisie})
         results = mycursor.fetchone()
         nomSauvegarde = results[0]
         idChapitreRendu = results[1]
@@ -80,41 +90,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Select texte du Chapitre rendu.
         mycursor = mydb.cursor()
-        mycursor.execute('SELECT texte FROM chapitre WHERE chapitre_id=%(id_chapitre)s AND livre_id=%(id_livre)s', {'id_chapitre' : idChapitreRendu, 'id_livre' : idLivreSauvegarde})
+        mycursor.execute('SELECT texte FROM chapitre WHERE no_chapitre=%(id_chapitre)s AND livre_id=%(id_livre)s', {'id_chapitre' : idChapitreRendu, 'id_livre' : idLivreSauvegarde})
         result = mycursor.fetchone()
-        texteChapitre = results[0]
+        texteChapitre = result[0]
 
         # Set le texte dans le widget Chapitre.
         self.textBrowser_ChapitreTexte.clear()
         self.textBrowser_ChapitreTexte.append(texteChapitre)
-
+        # Set le title du Chapitre
+        self.label_ChapitreTitle.setText("Chapitre " + str(idChapitreRendu))
         # Set SauvegarderHint
-        self.label_SauvegarderHint.text = "Sauvegarde actuelle: " + nomSauvegarde
+        self.label_SauvegarderHint.setText("Sauvegarde actuelle: " + nomSauvegarde)
 
-    def SauvegarderChapitre(self, chapitreActuel):
+    def SauvegarderChapitre(self):
         # Read le Nom choisi.
         nomSauvegardeChoisi = self.lineEdit_SauvegarderNom.text()
-
+        if (nomSauvegardeChoisi == ""):
+            print("erreur: pas de nom de sauvegarde.")
+            return
+        elif (not hasattr(self, 'chapitreActuel')):
+            print("erreur: pas de partie commencée.")
+            return
+        elif (self.chapitreActuel == 0):
+            print("Erreur: Vous ne pouvez pas sauvegarder la progression au prologue.")
+            return
+        
         # Insert un nouvelle Sauvegarde.
         mycursor = mydb.cursor()
-        mycursor.execute('INSERT INTO sauvegarde(nom, chapitre_actuel) VALUES (%(nom)s, %(chapitre_actuel)s)', {'nom' : nomSauvegardeChoisi, 'chapitre_actuel' : chapitreActuel})
+        mycursor.execute('INSERT INTO sauvegarde(nom, livre_id, no_chapitre_rendu) VALUES (%(nom)s, %(livre_id)s, %(no_chapitre_rendu)s)', {'nom' : nomSauvegardeChoisi, 'livre_id' : self.livreActuel, 'no_chapitre_rendu' : self.chapitreActuel})
+        mydb.commit()
 
         # Set SauvegarderHint
-        self.label_SauvegarderHint.text = "Sauvegarde actuelle: " + nomSauvegardeChoisi
+        self.label_SauvegarderHint.setText("Sauvegarde actuelle: " + nomSauvegardeChoisi)
+        # Refresh ComboBox_Load
+        self.PeuplerComboBoxContinuerPartie()
 
     def GoToChapitre(self):
         # Read le livre choisi.
         idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
         # Read le chapitre choisi.
         idChapitreChoisi = self.comboBox_ChapitreChapitre.currentText()
+        if (idChapitreChoisi == ""):
+            return
+        self.chapitreActuel = idChapitreChoisi
 
-        # Select prologue du livre idLivreChoisi.
+        # Select texte du livre idLivreChoisi.
         mycursor = mydb.cursor()
         mycursor.execute('SELECT texte FROM chapitre WHERE livre_id=%(id_livre)s AND no_chapitre=%(id_chapitre)s', {'id_livre' : idLivreChoisi, "id_chapitre" : idChapitreChoisi})
         result = mycursor.fetchone()
         texteChapitre = result[0]
 
         # Set le texte dans le widget Chapitre.
+        self.label_ChapitreTitle.setText("Chapitre " + self.chapitreActuel)
         self.textBrowser_ChapitreTexte.clear()
         self.textBrowser_ChapitreTexte.append(texteChapitre)
 
@@ -123,11 +150,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def PeuplerComboBoxContinuerPartie(self):
         #select
         mycursor = mydb.cursor()
-        mycursor.execute('SELECT nom FROM sauvegarde')
+        mycursor.execute('SELECT nom, id FROM sauvegarde')
         resultSql = mycursor.fetchall()
         # set comboBox
         for row in resultSql:#foreach row in resultSql:
-            self.comboBox_ContinuerPartiePartie.addItem(row[0])#dans la row, va chercher le 'champ 0'.
+            self.comboBox_ContinuerPartiePartie.addItem(row[0], row[1])#dans la row, va chercher le 'champ 0'.
 
     def ClearApplication(self):
         # Clear les listes, le chapitre et SauvegarderHint.

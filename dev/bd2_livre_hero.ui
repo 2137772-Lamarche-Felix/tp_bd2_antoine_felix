@@ -296,7 +296,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Chapitre 1</string>
+           <string>Chapitre</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
