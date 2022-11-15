@@ -5,12 +5,26 @@ from bd2_livre_hero import Ui_MainWindow
 # sql
 import mysql.connector
 
+# Quand c'est Antoine
+
+# mydb = mysql.connector.connect(
+#   host="localhost",
+#   user="root",
+#   password="mysql",
+#   database="bddeux_livre_hero"
+# )
+
+
+# Quand c'est félix
+
+
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="mysql",
+  password="",
   database="bddeux_livre_hero"
 )
+
 
 # En paramêtre de la classe MainWindow on va hériter des fonctionnalités
 # de QMainWindow et de notre interface Ui_MainWindow
@@ -36,7 +50,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     ### Functions ################################################
     def NouvellePartie(self):
         # Clear l'application.
-        #ClearApplication()
+        self.ClearApplication()
 
         # Read le livre choisi.
         idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
@@ -54,11 +68,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textBrowser_ChapitreTexte.append(textePrologue)
 
         self.label_ChapitreTitle.setText("Prologue")
+        self.comboBox_ChapitreChapitre.clear()
         self.comboBox_ChapitreChapitre.addItem("1")
 
     def DeletePartie(self):
         # Clear l'application.
-        #ClearApplication()
+        self.ClearApplication()
 
         # Read la Partie choisie.
         idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
@@ -75,7 +90,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def LoadPartie(self):
         # Clear l'application.
-        #ClearApplication()
+        self.ClearApplication()
 
         # Read la Partie choisie.
         idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
@@ -93,6 +108,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         mycursor.execute('SELECT texte FROM chapitre WHERE no_chapitre=%(id_chapitre)s AND livre_id=%(id_livre)s', {'id_chapitre' : idChapitreRendu, 'id_livre' : idLivreSauvegarde})
         result = mycursor.fetchone()
         texteChapitre = result[0]
+
 
         # Set le texte dans le widget Chapitre.
         self.textBrowser_ChapitreTexte.clear()
@@ -158,12 +174,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ClearApplication(self):
         # Clear les listes, le chapitre et SauvegarderHint.
-        #...
+       
+        self.textBrowser_ChapitreTexte.clear()
+        self.plainTextEdit_ArmesArmes.clear()
+        self.plainTextEdit_DisciplinesDisciplines.clear()
+        self.plainTextEdit_InventaireObjets.clear()
+        self.comboBox_ChapitreChapitre.clear()
+        self.comboBox_ContinuerPartiePartie.clear()
+        self.label_ChapitreTitle.clear()
         self.label_SauvegarderHint.text = "Sauvegarde actuelle: [jamais sauvegardé]"
         # Remove la Partie des comboBox.
-        #...
+        
     
     def PeuplerComboBoxNouvellePartieLivre(self):
+        self.comboBox_NouvellePartieLivre.clear()
         #select
         mycursor = mydb.cursor()
         mycursor.execute('SELECT nom FROM livre')
