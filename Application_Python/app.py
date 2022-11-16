@@ -53,7 +53,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ClearApplication()
 
         # Read le livre choisi.
-        idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
+        idLivreChoisi = self.comboBox_NouvellePartieLivre.currentData()
         self.livreActuel = idLivreChoisi
         self.chapitreActuel = 0
 
@@ -69,13 +69,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.label_ChapitreTitle.setText("Prologue")
         self.comboBox_ChapitreChapitre.clear()
-        self.comboBox_ChapitreChapitre.addItem("1")
+        #(exception prologue)
+        if (self.livreActuel==1):
+            self.comboBox_ChapitreChapitre.addItem("1")
 
     def DeletePartie(self):
-        # Clear l'application.
-        self.ClearApplication()
-
         # Read la Partie choisie.
+        if (self.comboBox_ContinuerPartiePartie.currentData() is None):
+            return
         idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
 
         mycursor = mydb.cursor()
@@ -83,16 +84,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         mydb.commit()
 
         # Clear l'application.
-        
+        self.ClearApplication()
+        self.label_ChapitreTitle.setText("Chapitre")
+        self.comboBox_ChapitreChapitre.clear()
         # Refresh ComboBox_Load
         self.PeuplerComboBoxContinuerPartie()
 
     def LoadPartie(self):
+        # Read la Partie choisie.
+        if (self.comboBox_ContinuerPartiePartie.currentData() is None):
+            return
+        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
+
         # Clear l'application.
         self.ClearApplication()
-
-        # Read la Partie choisie.
-        idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
 
         # Select nom, chapitre de la Sauvegarde.
         mycursor = mydb.cursor()
@@ -160,7 +165,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def GoToChapitre(self):
         # Read le livre choisi.
-        idLivreChoisi = self.comboBox_NouvellePartieLivre.currentIndex() + 1
+        if (not hasattr(self, 'livreActuel')):
+            print("erreur: pas de partie commencée.")
+            return
+        idLivreChoisi = self.livreActuel
         # Read le chapitre choisi.
         idChapitreChoisi = self.comboBox_ChapitreChapitre.currentText()
         if (idChapitreChoisi == ""):
@@ -181,9 +189,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.PeuplerComboBoxChapitre(idChapitreChoisi)
 
     def PeuplerComboBoxContinuerPartie(self):
+        self.comboBox_ContinuerPartiePartie.clear()
         #select
         mycursor = mydb.cursor()
-        mycursor.execute('SELECT nom, id FROM sauvegarde')
+        mycursor.execute('SELECT nom, id FROM sauvegarde ORDER BY nom')
         resultSql = mycursor.fetchall()
         # set comboBox
         for row in resultSql:#foreach row in resultSql:
@@ -195,23 +204,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.plainTextEdit_ArmesArmes.clear()
         self.plainTextEdit_DisciplinesDisciplines.clear()
         self.plainTextEdit_InventaireObjets.clear()
-        self.comboBox_ChapitreChapitre.clear()
-        self.comboBox_ContinuerPartiePartie.clear()
-        self.label_ChapitreTitle.clear()
-        self.label_SauvegarderHint.text = "Sauvegarde actuelle: [jamais sauvegardé]"
-        #Repeuple les combobox avec les infos a jour.
-        self.PeuplerComboBoxNouvellePartieLivre()
-        self.PeuplerComboBoxContinuerPartie()
+        self.label_SauvegarderHint.setText("Sauvegarde actuelle: [jamais sauvegardé]")
+        self.lineEdit_SauvegarderNom.clear()
         
     def PeuplerComboBoxNouvellePartieLivre(self):
         self.comboBox_NouvellePartieLivre.clear()
         #select
         mycursor = mydb.cursor()
-        mycursor.execute('SELECT nom FROM livre')
+        mycursor.execute('SELECT nom, id FROM livre ORDER BY nom')
         resultSql = mycursor.fetchall()
         # set comboBox
         for row in resultSql:#foreach row in resultSql:
-            self.comboBox_NouvellePartieLivre.addItem(row[0])#dans la row, va chercher le 'champ 0'.
+            self.comboBox_NouvellePartieLivre.addItem(row[0], row[1])#dans la row, va chercher le 'champ 0'.
     
     def PeuplerComboBoxChapitre(self, no_chapitre_actuel):
         self.comboBox_ChapitreChapitre.clear()
