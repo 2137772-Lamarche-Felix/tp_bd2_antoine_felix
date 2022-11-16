@@ -80,7 +80,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         idPartieChoisie = self.comboBox_ContinuerPartiePartie.currentData()
 
         mycursor = mydb.cursor()
-        mycursor.execute('DELETE FROM sauvegarde WHERE id=%(id_sauvegarde)s', {'id_sauvegarde' : idPartieChoisie})
+        #mycursor.execute('DELETE FROM sauvegarde WHERE id=%(id_sauvegarde)s', {'id_sauvegarde' : idPartieChoisie})
+        mycursor.callproc('delete_sauvegarde', (idPartieChoisie,))
         mydb.commit()
 
         # Clear l'application.
@@ -162,6 +163,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_SauvegarderHint.setText("Sauvegarde actuelle: " + nomSauvegardeChoisi)
         # Refresh ComboBox_Load
         self.PeuplerComboBoxContinuerPartie()
+        self.lineEdit_SauvegarderNom.clear()
 
     def GoToChapitre(self):
         # Read le livre choisi.
