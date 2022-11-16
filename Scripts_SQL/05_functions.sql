@@ -11,9 +11,12 @@ DELIMITER $$
 CREATE TRIGGER nom_sauvegarde_trigger BEFORE INSERT ON sauvegarde FOR EACH ROW
 BEGIN
 	DECLARE _count_sauvegarde INT;
-	SET _count_sauvegarde = (SELECT count(*) FROM sauvegarde WHERE nom = NEW.nom);
+	# Si tu trouve qqc comme le nouveau Nom, ajoute un chiffre
+	SET _count_sauvegarde = (
+		SELECT COUNT(nom) FROM sauvegarde WHERE nom RLIKE CONCAT('(^', NEW.nom, '$)|(^', NEW.nom, '\\(\\d+\\)$)')
+	);
 	IF _count_sauvegarde > 0 THEN
-		SET NEW.nom = CONCAT(NEW.nom, "(", STR(_count_sauvegarde), ")");
+		SET NEW.nom = CONCAT(NEW.nom, "(", _count_sauvegarde, ")");
 	END IF;
 END$$
 DELIMITER ;
